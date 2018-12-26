@@ -1,0 +1,22 @@
+<script>
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const voiceInfo = new SpeechRecognition();
+  voiceInfo.interimResults = true;
+  voiceInfo.lang = 'en-US';
+
+  voiceInfo.addEventListener('result', e => {
+
+    const info = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join(' ');
+
+    console.log(info);
+    document.querySelector('body').style.backgroundColor = info;
+  });
+
+  voiceInfo.addEventListener('end', voiceInfo.start);
+  voiceInfo.start();
+
+</script>
